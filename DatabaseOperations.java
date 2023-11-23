@@ -44,23 +44,6 @@ public class DatabaseOperations {
         }
     }
 
-    // Add a user
-    public void addUser(String name, String email) {
-        String SQL = "INSERT INTO users(name,email) VALUES(?,?)";
-
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-
-            pstmt.setString(1, name);
-            pstmt.setString(2, email);
-            pstmt.executeUpdate();
-            System.out.println("User added successfully!");
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
     // Add a student
     public void addStudent(String first_name, String last_name, String email, Date enrollment_date) {
         String SQL = "INSERT INTO students(first_name,last_name,email,enrollment_date) VALUES(?,?,?,?)";
@@ -82,23 +65,6 @@ public class DatabaseOperations {
             }
     }
 
-    // Update user's email based on name
-    public void modifyUserEmail(String name, String newEmail) {
-        String SQL = "UPDATE users SET email=? WHERE name=?";
-
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-
-            pstmt.setString(1, newEmail);
-            pstmt.setString(2, name);
-            pstmt.executeUpdate();
-            System.out.println("User email updated!");
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
     // Update student's email based on student_id
     public void updateStudentEmail(int student_id, String newEmail) {
         String SQL = "UPDATE students SET email=? WHERE student_id=?";
@@ -115,22 +81,6 @@ public class DatabaseOperations {
             {
                 System.out.println(ex.getMessage());
             }
-    }
-
-    // Delete user based on name
-    public void deleteUser(String name) {
-        String SQL = "DELETE FROM users WHERE name=?";
-
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-
-            pstmt.setString(1, name);
-            pstmt.executeUpdate();
-            System.out.println("User deleted!");
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
 
     // Delete student based on id
