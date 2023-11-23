@@ -1,10 +1,10 @@
 Mason McLeod
 101229241
 
-How to run
+How to setup/run
 - Open DatabaseOperations.java
 - Update url, user and password;
-- Change main how you see fit
+- Change main to control program flow as you see fit
 - run the file
 
 getAllStudents -> prints all students in the database

@@ -1,3 +1,5 @@
+--this is just a text file that i am using as a notebook
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50),
