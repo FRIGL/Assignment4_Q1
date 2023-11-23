@@ -16,71 +16,32 @@ public class DatabaseOperations {
     private final String user = "postgres";
     private final String password = "password";
 
-    
+
     public void getAllStudents()
     {   
+        String SQL = "SELECT student FROM students student;";
 
-        //Connection connection = DriverManager.getConnection(url, user, password);
-        
-        //Creating the Statement
-        //Statement statement = connection.createStatement();
-        //Query to retrieve records
-        //String query = "Select * from MyPlayers";
-        //Executing the query
-        //ResultSet resultSet = statement.executeQuery(query);
-        //Retrieving ResultSetMetaData object
-        //ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        try(Connection connection = DriverManager.getConnection(url, user, password); Statement stmt = connection.createStatement()) 
+        {
+            ResultSet resultSet = stmt.executeQuery(SQL);
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
-         String SQL = "SELECT s FROM students s;";
-
-        try (Connection connection = DriverManager.getConnection(url, user, password);
-            Statement stmt = connection.createStatement()) 
+            int columnsNumber = resultSetMetaData.getColumnCount();
+            while (resultSet.next())//more or less just copyed this block: https://stackoverflow.com/questions/24229442/print-the-data-in-resultset-along-with-column-names#:~:text=ResultSet%20resultSet%20%3D%20statement,println(%22%22)%3B%0A%7D
             {
-
-                ResultSet resultSet = stmt.executeQuery(SQL);
-
-                System.out.println("here");
-                
-
-                ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-                int columnsNumber = resultSetMetaData.getColumnCount();
-                while (resultSet.next()) 
+               for (int i = 1; i <= columnsNumber; i++) 
                 {
-                    for (int i = 1; i <= columnsNumber; i++) 
-                    {
-                        if (i > 1) System.out.print(",  ");
-                        String columnValue = resultSet.getString(i);
-                        System.out.print(columnValue + " " + resultSetMetaData.getColumnName(i));
-                    }
-                    System.out.println("");
+                    if(i > 1){ System.out.print(",  "); }
+                    String columnValue = resultSet.getString(i);
+                    System.out.print(columnValue + " " + resultSetMetaData.getColumnName(i));
                 }
-
-
-                //ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-
-                //System.out.println(resultSetMetaData.);//i think this works
-
-                System.out.println("good?");
+                System.out.println("");     
             }
-        catch (SQLException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-
-        /* 
-        String SQL = "SELECT s FROM students s;";
-        
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-            PreparedStatement pstmt = conn.prepareStatement(SQL)) 
-            {
-                pstmt.executeUpdate();
-                System.out.println("good?");
-            }
-        catch (SQLException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-            */
+        }
+        catch(SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
     }
 
     // Add a user
