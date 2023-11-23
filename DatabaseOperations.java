@@ -63,7 +63,7 @@ public class DatabaseOperations {
         }
     }
 
-    // Update student's email based on student_id
+    //update student's email based on student_id
     public void updateStudentEmail(int student_id, String newEmail) 
     {
         String SQL = "UPDATE students SET email=? WHERE student_id=?";
@@ -80,7 +80,7 @@ public class DatabaseOperations {
         }
     }
 
-    // Delete student based on student_id
+    //deletes student based on student_id
     public void deleteStudent(int student_id)
     {
         String SQL = "DELETE FROM students WHERE student_id=?";
