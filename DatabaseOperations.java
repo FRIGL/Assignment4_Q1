@@ -36,15 +36,29 @@ public class DatabaseOperations {
         try (Connection connection = DriverManager.getConnection(url, user, password);
             Statement stmt = connection.createStatement()) 
             {
-                 //Query to retrieve records
-                String query = "Select * from students";
 
-                //Executing the query
-                ResultSet resultSet = stmt.executeQuery(query);
+                ResultSet resultSet = stmt.executeQuery(SQL);
+
+                System.out.println("here");
+                
 
                 ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+                int columnsNumber = resultSetMetaData.getColumnCount();
+                while (resultSet.next()) 
+                {
+                    for (int i = 1; i <= columnsNumber; i++) 
+                    {
+                        if (i > 1) System.out.print(",  ");
+                        String columnValue = resultSet.getString(i);
+                        System.out.print(columnValue + " " + resultSetMetaData.getColumnName(i));
+                    }
+                    System.out.println("");
+                }
 
-                System.out.println(resultSetMetaData.getColumnCount());//i think this works
+
+                //ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+
+                //System.out.println(resultSetMetaData.);//i think this works
 
                 System.out.println("good?");
             }
