@@ -1,7 +1,9 @@
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 
@@ -26,6 +28,27 @@ public class DatabaseOperations {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    // Add a student
+    public void addStudent(String first_name, String last_name, String email, Date enrollment_date) {
+        String SQL = "INSERT INTO students(first_name,last_name,email,enrollment_date) VALUES(?,?,?,?)";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+            PreparedStatement pstmt = conn.prepareStatement(SQL))
+            {
+                pstmt.setString(1, first_name);
+                pstmt.setString(2, last_name);
+                pstmt.setString(3, email);
+                pstmt.setDate(4, enrollment_date);
+                pstmt.executeUpdate();
+                System.out.println("Student added successfully!");
+
+            }
+        catch(SQLException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
     }
 
     // Update user's email based on name
@@ -61,10 +84,30 @@ public class DatabaseOperations {
         }
     }
 
+    // Delete student based on id
+    public void deleteStudent(int studen_id) {
+        String SQL = "DELETE FROM students WHERE student_id=?";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+            PreparedStatement pstmt = conn.prepareStatement(SQL))
+            {
+
+                pstmt.setString(1, name);
+                pstmt.executeUpdate();
+                System.out.println("User deleted!");
+            }
+        catch(SQLException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+    }
+
     public static void main(String[] args) {
       DatabaseOperations dbOps = new DatabaseOperations();
       Scanner scanner = new Scanner(System.in);
       
+    dbOps.addStudent("John", "Doe", "john@example.com", new Date(10));
+
       // Add a user
       System.out.println("Would you like to add a user? (yes/no)");
       if (scanner.nextLine().equalsIgnoreCase("yes")) {
