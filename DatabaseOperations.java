@@ -12,15 +12,15 @@ import java.util.Scanner;
 
 public class DatabaseOperations {
 
+    //UPDATE THESE IN ACCORDANCE TO YOUR OWN DATABASE!!!
     private final String url = "jdbc:postgresql://localhost:5432/DemoDB";
     private final String user = "postgres";
     private final String password = "password";
 
-
+    //prints all students in the database
     public void getAllStudents()
     {   
         String SQL = "SELECT student FROM students student;";
-
         try(Connection connection = DriverManager.getConnection(url, user, password); Statement stmt = connection.createStatement()) 
         {
             ResultSet resultSet = stmt.executeQuery(SQL);
@@ -44,93 +44,72 @@ public class DatabaseOperations {
         }
     }
 
-    // Add a student
-    public void addStudent(String first_name, String last_name, String email, Date enrollment_date) {
+    //adds a new student to the database
+    public void addStudent(String first_name, String last_name, String email, Date enrollment_date) 
+    {
         String SQL = "INSERT INTO students(first_name,last_name,email,enrollment_date) VALUES(?,?,?,?)";
-
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-            PreparedStatement pstmt = conn.prepareStatement(SQL))
-            {
-                pstmt.setString(1, first_name);
-                pstmt.setString(2, last_name);
-                pstmt.setString(3, email);
-                pstmt.setDate(4, enrollment_date);
-                pstmt.executeUpdate();
-                System.out.println("Student added successfully!");
-
-            }
+        try(Connection conn = DriverManager.getConnection(url, user, password); PreparedStatement pstmt = conn.prepareStatement(SQL))
+        {
+            pstmt.setString(1, first_name);
+            pstmt.setString(2, last_name);
+            pstmt.setString(3, email);
+            pstmt.setDate(4, enrollment_date);
+            pstmt.executeUpdate();
+            System.out.println("Student added successfully!");    
+        }
         catch(SQLException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
+        {
+            System.out.println(ex.getMessage());
+        }
     }
 
     // Update student's email based on student_id
-    public void updateStudentEmail(int student_id, String newEmail) {
+    public void updateStudentEmail(int student_id, String newEmail) 
+    {
         String SQL = "UPDATE students SET email=? WHERE student_id=?";
-
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-            PreparedStatement pstmt = conn.prepareStatement(SQL))
-            {
-                pstmt.setString(1, newEmail);
-                pstmt.setInt(2, student_id);
-                pstmt.executeUpdate();
-                System.out.println("User email updated!");
-            } 
+        try(Connection conn = DriverManager.getConnection(url, user, password); PreparedStatement pstmt = conn.prepareStatement(SQL))
+        {
+            pstmt.setString(1, newEmail);
+            pstmt.setInt(2, student_id);
+            pstmt.executeUpdate();
+            System.out.println("User email updated!");
+        } 
         catch(SQLException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
+        {
+            System.out.println(ex.getMessage());
+        }
     }
 
-    // Delete student based on id
+    // Delete student based on student_id
     public void deleteStudent(int student_id)
     {
         String SQL = "DELETE FROM students WHERE student_id=?";
-
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-            PreparedStatement pstmt = conn.prepareStatement(SQL))
-            {
-
-                pstmt.setInt(1, student_id);
-                pstmt.executeUpdate();
-                System.out.println("Student deleted!");
-            }
+        try (Connection conn = DriverManager.getConnection(url, user, password); PreparedStatement pstmt = conn.prepareStatement(SQL))
+        {
+            pstmt.setInt(1, student_id);
+            pstmt.executeUpdate();
+            System.out.println("Student deleted!");
+        }
         catch(SQLException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
+        {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public static void main(String[] args) 
     {
-        DatabaseOperations dbOps = new DatabaseOperations();
-        Scanner scanner = new Scanner(System.in);
-        
-        //dbOps.addStudent("John", "Doe", "john@example.com", new Date(10));
-        //dbOps.deleteStudent(5);
-        //dbOps.updateStudentEmail(1, "ahhh");
-        dbOps.getAllStudents();
+        DatabaseOperations databaseOperations = new DatabaseOperations();
 
-        /* 
-        // Add a user
-        System.out.println("Would you like to add a user? (yes/no)");
-        if (scanner.nextLine().equalsIgnoreCase("yes")) {
-            dbOps.addUser("John Doe", "john@example.com");
-        }
-    
-        // Modify user's email
-        System.out.println("Would you like to modify a user's email? (yes/no)");
-        if (scanner.nextLine().equalsIgnoreCase("yes")) {
-            dbOps.modifyUserEmail("John Doe", "john.doe@example.com");
-        }
-    
-        // Delete user
-        System.out.println("Would you like to delete a user? (yes/no)");
-        if (scanner.nextLine().equalsIgnoreCase("yes")) {
-            dbOps.deleteUser("John Doe");
-        }
-        */
-        scanner.close();
+        //print all students
+        databaseOperations.getAllStudents();
+
+        //add a student
+        databaseOperations.addStudent("firstName", "lastName", "firstName.lastName@example.com", new Date(System.currentTimeMillis()));
+
+        //update a students Email
+        databaseOperations.updateStudentEmail(1, "new.email@example.com");
+
+        //delete a student
+        databaseOperations.deleteStudent(1);
     }
 }
