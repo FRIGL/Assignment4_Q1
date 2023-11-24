@@ -6,10 +6,10 @@ Video Demonstration:
 - https://mediaspace.carleton.ca/media/MasonMcLeod_A4_Q1/1_mn2eb39t
 
 How to setup/run
-- Open DatabaseOperations.java
-- Update url, user and password;
-- Change main to control program flow as you see fit
-- run the file
+0) Open DatabaseOperations.java
+1) Update url, user and password;
+2) Change main to control program flow as you see fit
+3) run the file
 
 getAllStudents -> prints all students in the database
 addStudent -> adds a new student to the database
