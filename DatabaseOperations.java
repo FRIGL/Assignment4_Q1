@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class DatabaseOperations {
 
     //UPDATE THESE IN ACCORDANCE TO YOUR OWN DATABASE!!!
-    private final String url = "jdbc:postgresql://localhost:5432/DemoDB";
+    private final String url = "jdbc:postgresql://localhost:5432/Assignment4_Question1";
     private final String user = "postgres";
     private final String password = "password";
 
@@ -107,9 +107,10 @@ public class DatabaseOperations {
         databaseOperations.addStudent("firstName", "lastName", "firstName.lastName@example.com", new Date(System.currentTimeMillis()));
 
         //update a students Email
-        databaseOperations.updateStudentEmail(1, "new.email@example.com");
+        databaseOperations.updateStudentEmail(3, "new.email@example.com");
 
         //delete a student
         databaseOperations.deleteStudent(1);
+
     }
 }

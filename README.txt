@@ -1,6 +1,10 @@
 Mason McLeod
 101229241
 
+Video Demonstration:
+- https://youtu.be/eqLJHVf9osk
+- https://mediaspace.carleton.ca/media/MasonMcLeod_A4_Q1/1_mn2eb39t
+
 How to setup/run
 - Open DatabaseOperations.java
 - Update url, user and password;
